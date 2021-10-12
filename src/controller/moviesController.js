@@ -1,4 +1,3 @@
-// GET /filmes/filtrar?{genero}
 const moviesData = require('../models/movies.json');
 
 const getMovies = (req,res) => {
@@ -30,10 +29,36 @@ const getMoviesByGenre = (req,res) => {
     res.status(200).send(moviesByGenre)
 }
 
+const createMovie = (req, res) => {
+    newMovie = ({
+        id:moviesData.length + 1,
+        Title: req.body.Title,
+        Year: req.body.Year,
+        Rated:req.body.Rated,
+        Released: req.body.Released,
+        Runtime: req.body.Runtime,
+        Genre:req.body.Genre,
+        Director: req.body.Director,
+        Writer: req.body.Writer,
+        Actors: req.body.Actors,
+        Plot: req.body.Plot,
+        Language: req.body.Language,
+        Country: req.body.Country,
+        Awards: req.body.Awards
+    })
+
+    moviesData.push(newMovie)
+
+    res.status(201).json({
+        "Message":"Filme adicionado com sucesso",
+        "Movie":newMovie
+    })
+}
 
 module.exports = {
     getMovies,
     getMovieById,
     getMovieByTitle,
-    getMoviesByGenre
+    getMoviesByGenre,
+    createMovie
 }
