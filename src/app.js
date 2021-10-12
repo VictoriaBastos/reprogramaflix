@@ -1,13 +1,16 @@
+const generalRoutes = require('./routes/generalRoutes')
+const moviesRoutes = require('./routes/moviesRoutes')
+
 const express = require('express');
 const cors = require('cors');
-const generalRoutes = require('./routes/generalRoutes')
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/', generalRoutes)
-// app.use('/movies', moviesRoutes);
+app.use('/assistir', generalRoutes)
+app.use('/filmes', moviesRoutes);
 // app.use('/series', seriesRoutes);
 
 module.exports = app;

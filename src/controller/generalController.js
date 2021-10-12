@@ -6,6 +6,8 @@ const getAll = (req,res) => {
         "Movies":moviesData,
         "Series":seriesData
     }])
+
+    console.log('Tudo na tela')
 }
 
 module.exports = {
