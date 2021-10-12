@@ -1,5 +1,4 @@
-// GET /filmes/buscar/?{titulo}
-
+// GET /filmes/filtrar?{genero}
 const moviesData = require('../models/movies.json');
 
 const getMovies = (req,res) => {
@@ -21,11 +20,20 @@ const getMovieByTitle = (req,res) => {
     res.status(200).send(movieRequested)
 }
 
+const getMoviesByGenre = (req,res) => {
+    genreRequested = (req.query.Genre).toLocaleLowerCase()
+    console.log(genreRequested)
 
+    moviesByGenre = moviesData.filter( 
+        movie => movie.Genre.toLocaleLowerCase().includes(genreRequested))
+
+    res.status(200).send(moviesByGenre)
+}
 
 
 module.exports = {
     getMovies,
     getMovieById,
     getMovieByTitle,
+    getMoviesByGenre
 }
