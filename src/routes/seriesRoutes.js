@@ -1,15 +1,16 @@
-//series [GET] /series{id} [GET] /series{titulo} [GET] /series{genero} 
-
 const controller = require('../controller/seriesController');
 
 const express = require('express');
-const route = express.Router();
+const router = express.Router();
 
-route.get('/', controller.getSeries)
-route.get('/buscar/:genre', controller.getSeriesByGenre) //não consegui direto na path raiz
-route.get('/filtrar/:title', controller.getSeriesByTitle) // não consegui direto na path raiz
-route.get('/:id', controller.getSeriesById) // path params só está me permitindo criar uma busca direto na raiz
+router.get('/', controller.getSeries)
+router.get('/buscar/:genre', controller.getSeriesByGenre) //não consegui direto na path raiz
+router.get('/filtrar/:title', controller.getSeriesByTitle) // não consegui direto na path raiz
+router.get('/:id', controller.getSeriesById) // path params só está me permitindo criar uma busca direto na raiz
+
+router.post('/criar', controller.createSeries)
+
+router.patch('/update/:id', controller.updateTitle)
 
 
-
-module.exports = route;
+module.exports = router;

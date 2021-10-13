@@ -1,14 +1,18 @@
 const controller = require('../controller/moviesController');
 
 const express = require('express');
-const route = express.Router();
+const router = express.Router();
 
-route.get('/', controller.getMovies);
+router.get('/', controller.getMovies);
 
-route.get('/filtrar', controller.getMoviesByGenre)
+router.get('/filtrar', controller.getMoviesByGenre);
 
-route.get('/buscar', controller.getMovieByTitle);
+router.get('/buscar', controller.getMovieByTitle);
 
-route.get('/buscar/:id', controller.getMovieById)
+router.get('/buscar/:id', controller.getMovieById);
 
-module.exports = route;
+router.post('/criar', controller.createMovie);
+
+router.patch('/update/:id', controller.updateTitle);
+
+module.exports = router;

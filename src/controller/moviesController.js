@@ -55,10 +55,27 @@ const createMovie = (req, res) => {
     })
 }
 
+const updateTitle = (req, res) => {
+    idRequest = req.params.id;
+
+    movieRequested = moviesData.find(movie => movie.id == idRequest)
+
+    newTitle = req.query.Title
+
+    movieRequested.Title = newTitle
+
+    res.status(200).json({
+        "Message":"Title updated successfully",
+        "Movie":newTitle
+    })
+}
+
+
 module.exports = {
     getMovies,
     getMovieById,
     getMovieByTitle,
     getMoviesByGenre,
-    createMovie
+    createMovie,
+    updateTitle
 }
