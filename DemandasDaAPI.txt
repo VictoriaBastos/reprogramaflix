@@ -1,0 +1,20 @@
+OK [GET] /assistir
+OK [GET] /filmes
+OK [GET] /filmes/buscar/{id}
+OK [GET] /filmes/buscar?{titulo}
+OK [GET] /filmes/filtrar?{genero}
+OK [POST]/filmes/criar
+OK [PATCH]/filmes/updateTitle?{id} -> query params
+OK [PATCH]/filmes/update/{id} //->path params /updateAnything --> Não deveria ser um PUT ?
+OK [PUT]/filmes/update/{id} -> path params
+OK [DELETE]/filmes/deletar/{id} 
+
+OK [GET] /series
+OK [GET] /series{id}
+NAO [GET] /series{titulo}
+NAO [GET] /series{genero}
+OK [POST]/series/criar
+OK [PUT]/series/update/{id} //Bloquear alteração de ID
+[PATCH]/series/updateTitle?{id}
+[PATCH]/series/update/{id} // fazer um update qlqr coisa com PUT (perguntar redundancia para analu)
+OK [DELETE]/series/deletar/{id}

@@ -13,6 +13,12 @@ router.get('/buscar/:id', controller.getMovieById);
 
 router.post('/criar', controller.createMovie);
 
-router.patch('/update/:id', controller.updateTitle);
+router.patch('/update', controller.updateTitle);
+
+router.patch('/update/:id' , controller.updateAnything);
+
+router.put('/update/:id', controller.updateMovie);
+
+router.delete('/deletar/:id', controller.deleteMovie);
 
 module.exports = router;
