@@ -105,7 +105,9 @@ const updateTitle = (req, res) => {
 
     movieToBeUpdated.Title = titleUpdate
 
-    res.status(200).send(`Title updated: ${titleUpdate}`)
+    res.status(200).json(
+        {"Message":"Title updated",
+        "Movie":movieToBeUpdated})
 
     //TAMBÉM ESTÁ FUNCIONANDO
     // let titleRequest = req.query.Title

@@ -2,20 +2,29 @@ let seriesData = require('../models/series.json');
 
 const getSeries = (req,res) => {
     seriesRequested = req.query
-    console.log(seriesRequested)
-    console.log(seriesRequested.title.toLocaleLowerCase())
 
     const keyRequested = Object.keys(seriesRequested).toString() //how to make it lowercase
-    console.log(keyRequested)
 
     if(keyRequested == "") {
         res.status(200).send(seriesData)
     } else if(keyRequested == "title"){
-        seriesByTitle = seriesData.find( series => (series.title.toLocaleLowerCase()) == (seriesRequested[keyRequested].toLocaleLowerCase()))
-        console.log(seriesByTitle)
-        res.status(200).send(seriesByTitle)
-    }
+        seriesByTitle = seriesData.find( series => (series.title.toLocaleLowerCase()).includes((seriesRequested[keyRequested].toLocaleLowerCase())))
 
+        res.status(200).send(seriesByTitle)
+      } else if(keyRequested == "genre"){
+        seriesByGenre = seriesData.filter( series => (series.genre.toString().toLocaleLowerCase().includes(seriesRequested[keyRequested].toLocaleLowerCase())))
+        res.status(200).send(seriesByGenre)
+    } else{
+        res.status(404).send("Invalid request. Try again searching by title or genre.")
+    }
+}
+
+const getSeriesById = (req,res) => {
+    idRequest = req.params.id
+
+    seriesById = seriesData.find( series => series.id == idRequest)
+
+    res.status(200).send(seriesById)
 }
 
 // const getSeries = (req,res) => { 
@@ -150,7 +159,7 @@ const deleteSeries = (req,res) => {
 
 module.exports = {
     getSeries,
-    // getSeriesById,
+    getSeriesById,
     // getSeriesByTitle,
     // getSeriesByGenre,
     createSeries,

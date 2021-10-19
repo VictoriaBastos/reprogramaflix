@@ -4,9 +4,9 @@ OK [GET] /filmes/buscar/{id}
 OK [GET] /filmes/buscar?{titulo}
 OK [GET] /filmes/filtrar?{genero}
 OK [POST]/filmes/criar
-OK [PATCH]/filmes/updateTitle?{id} -> query params
-OK [PATCH]/filmes/update/{id} //->path params /updateAnything --> Não deveria ser um PUT ?
-OK [PUT]/filmes/update/{id} -> path params
+OK [PATCH]/filmes/updateTitle?{id} // (Both Query Params)
+OK [PATCH]/filmes/update/{id} // (Path params/ updateAnything)
+OK [PUT]/filmes/update/{id} // (Path params) 
 OK [DELETE]/filmes/deletar/{id} 
 
 OK [GET] /series
