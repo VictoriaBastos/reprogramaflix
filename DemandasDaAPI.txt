@@ -9,12 +9,12 @@ OK [PATCH]/filmes/update/{id} // (Path params/ updateAnything)
 OK [PUT]/filmes/update/{id} // (Path params) 
 OK [DELETE]/filmes/deletar/{id} 
 
-OK [GET] /series
+OK [GET] /series // em getSeries()
+OK [GET] /series{titulo} // em getSeries()
+OK [GET] /series{genero} // em getSeries()
 OK [GET] /series{id}
-NAO [GET] /series{titulo}
-NAO [GET] /series{genero}
 OK [POST]/series/criar
 OK [PUT]/series/update/{id}
-OK [PATCH]/series/updateTitle?{id}
-OK [PATCH]/series/update/{id} // fazer um update qlqr coisa com PUT (perguntar redundancia para analu)
+OK [PATCH]/series/updateTitle?{id} // Both Query Params
+OK [PATCH]/series/update/{id} -->UpdateAnything
 OK [DELETE]/series/deletar/{id}
