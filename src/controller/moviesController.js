@@ -11,7 +11,7 @@ const getMovieById = (req,res) => {
 }
 
 const getMovieByTitle = (req,res) => {
-    titleRequested = (req.query.Title).toLocaleLowerCase()
+    titleRequested = req.query.Title.toLocaleLowerCase()
     
     movieRequested = moviesData.filter(
          movie => movie.Title.toLocaleLowerCase().includes(titleRequested))
@@ -137,14 +137,12 @@ const updateTitle = (req, res) => {
 
 const deleteMovie = (req, res) => {
     idRequest = req.params.id;
-
-    //Fazendo dessa forma para ter em uma variável o valor deletado.
-    movieDeleted = moviesData.find(movie => movie.id == idRequest)
-    moviesData.splice(moviesData.indexOf(movieToBeDeleted), 1)
     
-    // indexMovie = moviesData.findIndex(movie => movie.id == idRequest)
-    // movieDeleted = moviesData[indexMovie]
-    // moviesData.splice(indexMovie , 1)
+    indexMovie = moviesData.findIndex(movie => movie.id == idRequest)
+    
+    movieDeleted = moviesData[indexMovie]
+    
+    moviesData.splice(indexMovie , 1)
 
     res.status(200).json({
         "Message": "Movie deleted successfully",

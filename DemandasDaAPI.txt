@@ -14,7 +14,7 @@ OK [GET] /series{id}
 NAO [GET] /series{titulo}
 NAO [GET] /series{genero}
 OK [POST]/series/criar
-OK [PUT]/series/update/{id} //Bloquear alteração de ID
-[PATCH]/series/updateTitle?{id}
-[PATCH]/series/update/{id} // fazer um update qlqr coisa com PUT (perguntar redundancia para analu)
+OK [PUT]/series/update/{id}
+OK [PATCH]/series/updateTitle?{id}
+OK [PATCH]/series/update/{id} // fazer um update qlqr coisa com PUT (perguntar redundancia para analu)
 OK [DELETE]/series/deletar/{id}
