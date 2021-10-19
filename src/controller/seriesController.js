@@ -8,7 +8,7 @@ const getSeries = (req,res) => {
     if(keyRequested == "") {
         res.status(200).send(seriesData)
     } else if(keyRequested == "title"){
-        seriesByTitle = seriesData.find( series => (series.title.toLocaleLowerCase()).includes((seriesRequested[keyRequested].toLocaleLowerCase())))
+        seriesByTitle = seriesData.filter( series => (series.title.toLocaleLowerCase()).includes((seriesRequested[keyRequested].toLocaleLowerCase())))
 
         res.status(200).send(seriesByTitle)
       } else if(keyRequested == "genre"){
@@ -79,9 +79,8 @@ const createSeries = (req, res) => {
         writers:req.body.writers,
         poster:req.body.poster,
         actors:req.body.actors,
-        ratings:{"rating": req.body.ratings.rating,
-                 "likes": req.body.ratings.likes}
-         })
+        ratings:req.body.ratings
+        })
 
     seriesData.push(newSeries)
 
@@ -108,7 +107,7 @@ const updateSeries = (req,res) => {
 }
 
 const updateTitle = (req,res) => {
-    idRequest = req.params.id;
+    idRequest = req.query.id;
     titleUpdate = req.query.title
 
     seriesToBeUpdated = seriesData.find(series => series.id === idRequest)
@@ -127,6 +126,8 @@ const updateAnything = (req,res) => {
 
     seriesToBeUpdated = seriesData.find(series => series.id == idRequest)
 
+    infoUpdate.id = idRequest
+
     Object.keys(seriesToBeUpdated).forEach(key => {
         if(infoUpdate[key] == undefined) {
             seriesToBeUpdated[key] = seriesToBeUpdated[key]
@@ -134,8 +135,6 @@ const updateAnything = (req,res) => {
             seriesToBeUpdated[key] = infoUpdate[key]
         }
     })
-
-    infoUpdate.id = idRequest
 
     res.status(200).json({
         "message": "Series updated successfully",
@@ -149,7 +148,7 @@ const deleteSeries = (req,res) => {
 
     seriesToBeDeleted = seriesData.find( series => series.id == idRequest)
 
-    seriesData.splice(seriesData.indexOf(seriesRequested), 1)
+    seriesData.splice(seriesData.indexOf(seriesToBeDeleted), 1)
 
     res.status(200).json({
         "Message": "Series deleted successfully",
