@@ -6,8 +6,8 @@ const getMovies = (req,res) => {
 
 const getMovieById = (req,res) => {
     idRequest = req.params.id
-    movieRequested = moviesData.find( movie => movie.id == idRequest)
-    res.status(200).send(movieRequested)
+    movieById = moviesData.find( movie => movie.id == idRequest)
+    res.status(200).send(movieById)
 }
 
 const getMovieByTitle = (req,res) => {
@@ -19,7 +19,7 @@ const getMovieByTitle = (req,res) => {
     res.status(200).send(movieRequested)
 }
 
-const getMoviesByGenre = (req,res) => { // mudar para loop de movies
+const getMoviesByGenre = (req,res) => {
     genreRequested = (req.query.Genre).toLocaleLowerCase()
 
     moviesByGenre = moviesData.filter( 
@@ -49,92 +49,62 @@ const createMovie = (req,res) => {
     moviesData.push(newMovie)
 
     res.status(201).json({
-        "Message":"Filme adicionado com sucesso",
+        "Message":"Movie successfully added",
         "Movie":newMovie
     })
 }
 
-const updateAnything = (req,res) => {
-    idRequest = req.params.id
-    infoUpdate = req.body
-
-    movieToBeUpdated = moviesData.find( movie => movie.id == idRequest)
-
-    //1o pegar o objeto movieToBeUpdated e criar um array de chaves.
-    //Nesse array de chaves preciso percorrer e alterar cada um dos itens
-    //Se a chave não foi alterada no body request((infoUpdate)), a original (movieToBeUpdated) permanece igual
-    //Se a chave foi mandanda no body request (infoUpdate), a original (movieToBeUpdated) é alterada
-
-    Object.keys(movieToBeUpdated).forEach( key => {
-        if( infoUpdate[key] == undefined){
-            movieToBeUpdated[key] == movieToBeUpdated[key]
-        }else{
-            movieToBeUpdated[key] = infoUpdate[key]
-        }
-    })
-
-    //id não pode mudar
-    movieToBeUpdated.id = idRequest
-
-    res.status(200).json({
-        "message":"Movie updated successfully",
-        "movie": movieToBeUpdated
-    })
-}
-
-const updateMovie = (req, res) => {
-    idRequest = req.params.id
-    infoUpdated = req.body
-
-    infoUpdated.id = idRequest
-
-    indexMovie = moviesData.findIndex(movie => movie.id == idRequest)
-    moviesData.splice(indexMovie, 1, infoUpdated)
-
-    res.status(200).json({
-        "Message": "Movie updated successfully",
-        "Movie":infoUpdated
-    })
-}
-
 const updateTitle = (req, res) => {
-    let idRequest = req.query.id
-    let titleUpdate = req.query.Title
+    idRequest = req.query.id
+    titleUpdate = req.query.Title
 
     movieToBeUpdated = moviesData.find(movie => movie.id == idRequest)
 
     movieToBeUpdated.Title = titleUpdate
 
     res.status(200).json(
-        {"Message":"Title updated",
+        {"Message":"Title updated successfully",
         "Movie":movieToBeUpdated})
+}
 
-    //TAMBÉM ESTÁ FUNCIONANDO
-    // let titleRequest = req.query.Title
-    // let titleUpdate = req.body.Title
-    // console.log(titleRequest)
+const updateAnything = (req,res) => {
+    idRequest = req.params.id
 
-    // movieToBeUpdated = moviesData.find(movie => movie.Title == titleRequest)
-    // console.log(movieToBeUpdated)
+    infoUpdate = req.body
 
-    // movieToBeUpdated.Title = titleUpdate
+    movieToBeUpdated = moviesData.find( movie => movie.id == idRequest)
 
-    // res.send(`Title updated from ${titleRequest} to ${titleUpdate}`)
+    infoUpdate.id = idRequest
+    
 
-    //CONFLITO NAS ROTAS
-    //[PATCH]/filmes/update/Title?{id} -> Query
-    // const updateTitle = (req, res) => {
-    //     idRequest = req.params.id;
-    //     titleRequest = req.query.Title;
+    Object.keys(movieToBeUpdated).forEach( key => {
+        if( infoUpdate[key] == undefined){
+            movieToBeUpdated[key] = movieToBeUpdated[key]
+        }else{
+            movieToBeUpdated[key] = infoUpdate[key]
+        }
+        
+    })
+    res.status(200).json({
+        "Message":"Movie updated successfully",
+        "Movie": movieToBeUpdated   
+    })
+}
 
-    //     movieToBeUpdated = moviesData.find(movie => movie.id == idRequest)
-    //     movieToBeUpdated.Title = titleRequest
+const updateMovie = (req, res) => {
+    idRequest = req.params.id
+    infoUpdate = req.body
 
-    //     res.status(200).json({
-    //         "Message": "Title updated successfully",
-    //         "Movie": movieToBeUpdated
-    //     })
-    // }
+    infoUpdate.id = idRequest
+
+    indexMovie = moviesData.findIndex(movie => movie.id == idRequest)
+
+    moviesData.splice(indexMovie, 1, infoUpdate)
+
+    res.status(200).json({
+        "Message": "Movie updated successfully",
+        "Movie":infoUpdate
+    })
 }
 
 const deleteMovie = (req, res) => {
@@ -159,8 +129,8 @@ module.exports = {
     getMovieByTitle,
     getMoviesByGenre,
     createMovie,
-    updateMovie,
     updateTitle,
+    updateAnything,
+    updateMovie,
     deleteMovie,
-    updateAnything
 }

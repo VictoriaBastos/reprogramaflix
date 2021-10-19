@@ -12,9 +12,9 @@ OK [DELETE]/filmes/deletar/{id}
 OK [GET] /series // em getSeries()
 OK [GET] /series{titulo} // em getSeries()
 OK [GET] /series{genero} // em getSeries()
-OK [GET] /series{id}
+OK [GET] /series{id}ok
 OK [POST]/series/criar
 OK [PUT]/series/update/{id}
 OK [PATCH]/series/updateTitle?{id} // Both Query Params
-OK [PATCH]/series/update/{id} -->UpdateAnything
+OK [PATCH]/series/update/{id} -->UpdateAnything // Path Params
 OK [DELETE]/series/deletar/{id}

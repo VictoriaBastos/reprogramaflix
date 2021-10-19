@@ -1,4 +1,4 @@
-const controller = require('../controller/generalController');
+const controller = require('../controller/catalogueController');
 
 const express = require('express');
 const route = express.Router();

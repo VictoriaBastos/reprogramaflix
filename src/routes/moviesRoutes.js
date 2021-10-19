@@ -5,11 +5,11 @@ const router = express.Router();
 
 router.get('/', controller.getMovies);
 
-router.get('/filtrar', controller.getMoviesByGenre);
+router.get('/buscar/:id', controller.getMovieById);
 
 router.get('/buscar', controller.getMovieByTitle);
 
-router.get('/buscar/:id', controller.getMovieById);
+router.get('/filtrar', controller.getMoviesByGenre);
 
 router.post('/criar', controller.createMovie);
 

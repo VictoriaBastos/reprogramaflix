@@ -3,7 +3,7 @@ let seriesData = require('../models/series.json');
 const getSeries = (req,res) => {
     seriesRequested = req.query
 
-    const keyRequested = Object.keys(seriesRequested).toString() //how to make it lowercase
+    const keyRequested = Object.keys(seriesRequested).toString() 
 
     if(keyRequested == "") {
         res.status(200).send(seriesData)
@@ -21,54 +21,9 @@ const getSeries = (req,res) => {
 
 const getSeriesById = (req,res) => {
     idRequest = req.params.id
-
     seriesById = seriesData.find( series => series.id == idRequest)
-
     res.status(200).send(seriesById)
 }
-
-// const getSeries = (req,res) => { 
-//     res.status(200).send(seriesData)
-// }
-
-// //query titulo,genero, sem query
-
-// const getSeriesByFilters = (req,res) => { 
-//     keyRequested = req.query
-//     console.log(keyRequested)
-
-//     seriesFiltered = seriesData.find()
-
-// }
-
-// const getSeriesById = (req,res, next) => {
-//     idRequest = req.query.id
-
-//     seriesRequested = seriesData.find( serie => serie.id == idRequest)
-    
-//     res.status(200).send(seriesRequested)
-// }
-
-// const getSeriesByTitle = (req,res) => {
-//     titleRequest = req.query.title;
-
-//     seriesRequested = seriesData.find( serie => serie.Title == titleRequest)
-
-//     res.status(200).send(seriesRequested)
-
-// }
-
-// const getSeriesByGenre = (req,res) => {
-//     genreRequest = req.query.genre.toLocaleLowerCase()
-//     console.log(genreRequest)
-
-//     serieRequested = seriesData.filter( serie => { //change to filter again
-//         ((serie.genre).toString().toLocaleLowerCase()).includes(genreRequest)   
-//     })
-
-    
-//     res.status(200).send(serieRequested)
-// }
 
 const createSeries = (req, res) => {
     newSeries = ({
@@ -85,24 +40,24 @@ const createSeries = (req, res) => {
     seriesData.push(newSeries)
 
     res.status(201).json({
-        "Message":"Serie criada com sucesso",
+        "Message":"Serie successfully added",
         "Series": newSeries
     })
 }
 
 const updateSeries = (req,res) => {
     idRequest = req.params.id
-    infoUpdated = req.body
+    infoUpdate = req.body
+
+    infoUpdate.id = idRequest
 
     indexSeries = seriesData.findIndex(series => series.id === idRequest)
 
-    seriesData.splice(indexSeries,1,infoUpdated)
-
-    infoUpdated.id = idRequest
+    seriesData.splice(indexSeries, 1, infoUpdate)
 
     res.status(200).json({
         "Message": "Series updated successfully",
-        "Series":infoUpdated
+        "Series":infoUpdate
     })
 }
 
@@ -115,7 +70,7 @@ const updateTitle = (req,res) => {
     seriesToBeUpdated.title = titleUpdate
 
     res.status(200).json({
-        "message": "Title updated successfully",
+        "Message": "Title updated successfully",
         "Series": seriesToBeUpdated
     })
 }
@@ -137,8 +92,8 @@ const updateAnything = (req,res) => {
     })
 
     res.status(200).json({
-        "message": "Series updated successfully",
-        "series": seriesToBeUpdated
+        "Message": "Series updated successfully",
+        "Series": seriesToBeUpdated
     })
 
 }
@@ -159,8 +114,6 @@ const deleteSeries = (req,res) => {
 module.exports = {
     getSeries,
     getSeriesById,
-    // getSeriesByTitle,
-    // getSeriesByGenre,
     createSeries,
     updateSeries,
     updateTitle,
